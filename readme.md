@@ -8,12 +8,15 @@
 
 With Version, you can retrieve various versions within your project, which is particularly useful if you have multiple projects and need to identify which ones require updates.
 
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/davidvandertuijn)
+
 ## Releases
 
 | Release | PHP    |
 |---------|--------|
 | 1.0     | 7.2.0  |
 | 2.0     | 8.1.0  |
+=======
 
 ## Install
 
@@ -34,7 +37,7 @@ Additionally, add the following components to the .env file if you want to check
 ```
 TUIJNCODE_VERSION_PDO_DSN="your-dsn"
 TUIJNCODE_VERSION_PDO_USERNAME="your-username"
-TUIJNCODE_VERSION_PDO_PASSWORD="your-username"
+TUIJNCODE_VERSION_PDO_PASSWORD="your-password"
 ```
 
 Use one of the following options for DSN:
@@ -92,7 +95,8 @@ https://example.com/version?token=your-token
 ```
 
 ## Dashboard
+
 Would you like to view all your projects in an online dashboard? We have successfully developed this solution and also offer installation support.
 https://davidvandertuijn.nl/oplossingen/versies
 
-![Html](http://cdn.davidvandertuijn.nl/solutions/versions/thumbnails/versions.400x300.png)
+![Html](http://cdn.davidvandertuijn.nl/solutions/versions/thumbnails/versions.800x600.png)
