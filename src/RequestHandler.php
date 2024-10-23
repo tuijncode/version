@@ -2,11 +2,11 @@
 
 namespace Tuijncode\Version;
 
+use Dotenv\Dotenv;
 use PDO;
 use PDOException;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Dotenv\Dotenv;
+use Symfony\Component\HttpFoundation\Request;
 
 class RequestHandler
 {
@@ -25,7 +25,7 @@ class RequestHandler
             try {
                 $this->pdo = new PDO($_ENV['TUIJNCODE_VERSION_PDO_DSN'], $_ENV['TUIJNCODE_VERSION_PDO_USERNAME'], $_ENV['TUIJNCODE_VERSION_PDO_PASSWORD']);
             } catch (PDOException $e) {
-                die('Connection failed: '.$e->getMessage());
+                exit('Connection failed: '.$e->getMessage());
             }
         }
     }
@@ -38,7 +38,7 @@ class RequestHandler
         if (empty($this->token)) {
             return new JsonResponse([
                 'status' => 'ERROR',
-                'message' => 'Token Is Not Configured Yet.'
+                'message' => 'Token Is Not Configured Yet.',
             ], 400);
         }
 
@@ -48,14 +48,14 @@ class RequestHandler
         if (empty($requestToken)) {
             return new JsonResponse([
                 'status' => 'ERROR',
-                'message' => 'Token Is Required.'
+                'message' => 'Token Is Required.',
             ], 400);
         }
 
         if ($requestToken !== $this->token) {
             return new JsonResponse([
                 'status' => 'ERROR',
-                'message' => 'Unauthorized'
+                'message' => 'Unauthorized',
             ], 401);
         }
 
@@ -73,8 +73,8 @@ class RequestHandler
                 'php' => [
                     'name' => php_sapi_name(),
                     'version' => phpversion(),
-                ]
-            ]
+                ],
+            ],
         ], 200);
     }
 
