@@ -16,7 +16,6 @@ With Version, you can retrieve various versions within your project, which is pa
 |---------|--------|
 | 1.0     | 7.2.0  |
 | 2.0     | 8.1.0  |
-=======
 
 ## Install
 
