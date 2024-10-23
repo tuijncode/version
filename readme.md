@@ -8,12 +8,19 @@
 
 With Version, you can retrieve various versions within your project, which is particularly useful if you have multiple projects and need to identify which ones require updates.
 
+## Releases
+
+| Release | PHP    |
+|---------|--------|
+| 1.0     | 7.2.0  |
+| 2.0     | 8.1.0  |
+
 ## Install
 
 Install the package via Composer:
 
 ```sh
-composer require tuijncode/version:dev-php-81
+composer require tuijncode/version
 ```
 
 Add your token to the .env file:
