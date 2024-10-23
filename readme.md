@@ -13,7 +13,7 @@ With Version, you can retrieve various versions within your project, which is pa
 Install the package via Composer:
 
 ```sh
-composer require tuijncode/version
+composer require tuijncode/version:dev-php-81
 ```
 
 Add your token to the .env file:
