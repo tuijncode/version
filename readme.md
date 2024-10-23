@@ -8,6 +8,8 @@
 
 With Version, you can retrieve various versions within your project, which is particularly useful if you have multiple projects and need to identify which ones require updates.
 
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/davidvandertuijn)
+
 ## Install
 
 Install the package via Composer:
