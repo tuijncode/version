@@ -10,6 +10,14 @@ With Version, you can retrieve various versions within your project, which is pa
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/davidvandertuijn)
 
+## Releases
+
+| Release | PHP    |
+|---------|--------|
+| 1.0     | 7.2.0  |
+| 2.0     | 8.1.0  |
+=======
+
 ## Install
 
 Install the package via Composer:
