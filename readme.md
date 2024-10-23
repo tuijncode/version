@@ -85,7 +85,8 @@ https://example.com/version?token=your-token
 ```
 
 ## Dashboard
+
 Would you like to view all your projects in an online dashboard? We have successfully developed this solution and also offer installation support.
 https://davidvandertuijn.nl/oplossingen/versies
 
-![Html](http://cdn.davidvandertuijn.nl/solutions/versions/thumbnails/versions.400x300.png)
+![Html](http://cdn.davidvandertuijn.nl/solutions/versions/thumbnails/versions.800x600.png)
