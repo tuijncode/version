@@ -29,7 +29,7 @@ Additionally, add the following components to the .env file if you want to check
 ```
 TUIJNCODE_VERSION_PDO_DSN="your-dsn"
 TUIJNCODE_VERSION_PDO_USERNAME="your-username"
-TUIJNCODE_VERSION_PDO_PASSWORD="your-username"
+TUIJNCODE_VERSION_PDO_PASSWORD="your-password"
 ```
 
 Use one of the following options for DSN:
