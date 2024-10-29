@@ -14,8 +14,8 @@ With Version, you can retrieve various versions within your project, which is pa
 
 | Release | PHP    |
 |---------|--------|
-| v1.0     | 7.2.0  |
-| v2.0     | 8.1.0  |
+| v1.x    | 7.2.0  |
+| v2.x    | 8.1.0  |
 
 ## Install
 
@@ -75,20 +75,20 @@ https://example.com/version?token=your-token
     "versions":
         {
             "webserver":
-                {
-                    "name": "Apache",
-                    "version": "Apache\/2.4.58 (Unix) mod_wsgi\/4.9.4 Python\/3.11 mod_fastcgi\/mod_fastcgi-SNAP-0910052141 OpenSSL\/1.1.1u"
-                },
+            {
+                "name": "Apache",
+                "version": "Apache\/2.4.58 (Unix) mod_wsgi\/4.9.4 Python\/3.11 mod_fastcgi\/mod_fastcgi-SNAP-0910052141 OpenSSL\/1.1.1u"
+            },
             "database":
-                {
-                    "name": "mysql",
-                    "version": "8.0.35"
-                },
+            {
+                "name": "mysql",
+                "version": "8.0.35"
+            },
             "php":
-                {
-                  "name": "cgi-fcgi",
-                  "version": "8.2.20"
-                }
+            {
+                "name": "cgi-fcgi",
+                "version": "8.2.20"
+            }
         }
 }
 ```

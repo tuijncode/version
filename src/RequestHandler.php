@@ -3,6 +3,7 @@
 namespace Tuijncode\Version;
 
 use Dotenv\Dotenv;
+use Exception;
 use PDO;
 use PDOException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -10,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class RequestHandler
 {
-    protected $token;
+    protected string $token;
 
     protected $pdo;
 
@@ -19,9 +20,9 @@ class RequestHandler
         $dotenv = Dotenv::createImmutable($_SERVER['DOCUMENT_ROOT']);
         $dotenv->load();
 
-        $this->token = isset($_ENV['TUIJNCODE_VERSION_TOKEN']) ? $_ENV['TUIJNCODE_VERSION_TOKEN'] : null;
+        $this->token = isset($_ENV['TUIJNCODE_VERSION_TOKEN']) ? $_ENV['TUIJNCODE_VERSION_TOKEN'] : '';
 
-        if (isset($_ENV['TUIJNCODE_VERSION_PDO_DSN'])) {
+        if (! empty($_ENV['TUIJNCODE_VERSION_PDO_DSN'])) {
             try {
                 $this->pdo = new PDO($_ENV['TUIJNCODE_VERSION_PDO_DSN'], $_ENV['TUIJNCODE_VERSION_PDO_USERNAME'], $_ENV['TUIJNCODE_VERSION_PDO_PASSWORD']);
             } catch (PDOException $e) {
@@ -59,6 +60,48 @@ class RequestHandler
             ], 401);
         }
 
+        // Composer
+
+        $fault = false;
+
+        try {
+            $dependencies = $this->getComposerDependencies();
+        } catch (Exception $e) {
+            $fault = true;
+            $composer = [
+                'status' => 'ERROR',
+                'message' => $e->getMessage(),
+            ];
+        }
+
+        if ($fault == false) {
+            $composer = [
+                'status' => 'OK',
+                'dependencies' => $dependencies,
+            ];
+        }
+
+        // Npm
+
+        $fault = false;
+
+        try {
+            $dependencies = $this->getNpmDependencies();
+        } catch (Exception $e) {
+            $fault = true;
+            $npm = [
+                'status' => 'ERROR',
+                'message' => $e->getMessage(),
+            ];
+        }
+
+        if ($fault == false) {
+            $npm = [
+                'status' => 'OK',
+                'dependencies' => $dependencies,
+            ];
+        }
+
         return new JsonResponse([
             'status' => 'OK',
             'versions' => [
@@ -73,6 +116,12 @@ class RequestHandler
                 'php' => [
                     'name' => php_sapi_name(),
                     'version' => phpversion(),
+                ],
+                'composer' => [
+                    'response' => $composer,
+                ],
+                'npm' => [
+                    'response' => $npm,
                 ],
             ],
         ], 200);
@@ -142,5 +191,73 @@ class RequestHandler
             default:
                 return 'N/A';
         }
+    }
+
+    /**
+     * Get Composer Dependencies.
+     */
+    public function getComposerDependencies()
+    {
+        $file = $_SERVER['DOCUMENT_ROOT'].'/composer.json';
+
+        if (! file_exists($file)) {
+            throw new Exception('File composer.json json found.');
+        }
+
+        $data = json_decode(file_get_contents($file), true);
+
+        if (! isset($data['require'])) {
+            throw new Exception('Invalid composer.json format.');
+        }
+
+        $dependencies = [];
+
+        foreach (['require-dev', 'require'] as $type) {
+            if (! array_key_exists($type, $data)) {
+                continue;
+            }
+
+            foreach ($data[$type] as $name => $version) {
+                $dependencies[$name] = [
+                    'version' => $version,
+                    'type' => $type,
+                ];
+            }
+        }
+
+        return $dependencies;
+    }
+
+    /**
+     * Get Npm Dependencies.
+     */
+    public function getNpmDependencies()
+    {
+        $path = $_SERVER['DOCUMENT_ROOT'].'/package.json';
+
+        if (! file_exists($path)) {
+            throw new Exception('File package.json not found.');
+        }
+
+        $data = json_decode(file_get_contents($path), true);
+
+        if (! isset($data['dependencies'])) {
+            throw new Exception('Invalid package.json format.');
+        }
+
+        foreach (['devDependencies', 'dependencies'] as $type) {
+            if (! array_key_exists($type, $data)) {
+                continue;
+            }
+
+            foreach ($data[$type] as $name => $version) {
+                $dependencies[$name] = [
+                    'version' => $version,
+                    'type' => $type,
+                ];
+            }
+        }
+
+        return $dependencies;
     }
 }
